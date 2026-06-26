@@ -10,5 +10,5 @@ public class Warehouse
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<WarehouseZone> Zones { get; set; } = new List<WarehouseZone>();
+    public ICollection<WarehouseZone> Zones { get; set; } = [];
 }

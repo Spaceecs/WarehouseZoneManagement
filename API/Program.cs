@@ -1,3 +1,7 @@
+using Application.Core;
+using Application.Warehouses.Queries;
+using Application.Warehouses.Validators;
+using FluentValidation;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +15,15 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(GetWarehouseList.Query).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+});
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateWarehouseValidator>();
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfiles>());
 
 var app = builder.Build();
 
