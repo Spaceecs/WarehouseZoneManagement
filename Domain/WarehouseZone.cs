@@ -5,7 +5,7 @@ public enum ZoneType
     Receiving,
     Storage,
     Shipping,
-    Cold
+    Cold,
 }
 
 public class WarehouseZone
@@ -20,5 +20,5 @@ public class WarehouseZone
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-    public ICollection<ZoneSlot> Slots { get; set; } = new List<ZoneSlot>();
+    public ICollection<ZoneSlot> Slots { get; set; } = [];
 }

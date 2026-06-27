@@ -10,19 +10,10 @@ public class WarehousesController : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<PagedList<WarehouseListDto>>> GetWarehouses(
-        [FromQuery] string? searchTerm,
-        [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 20,
+        [FromQuery] GetWarehouseList.Query query,
         CancellationToken cancellationToken = default
     )
     {
-        var query = new GetWarehouseList.Query
-        {
-            SearchTerm = searchTerm,
-            Page = page,
-            PageSize = pageSize,
-        };
-
         return HandleResult(await Mediator.Send(query, cancellationToken));
     }
 

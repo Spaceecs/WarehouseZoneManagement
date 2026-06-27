@@ -26,14 +26,15 @@ public class CreateWarehouse
         {
             var existing = await context.Warehouses.AnyAsync(x => x.Code == request.Warehouse.Code);
             if (existing)
-                return Result<WarehouseDetailsDto>.Failure("Warehouse code must be unique", 401);
+                return Result<WarehouseDetailsDto>.Failure("Warehouse code must be unique", 400);
 
             var warehouse = mapper.Map<Warehouse>(request.Warehouse);
 
             context.Warehouses.Add(warehouse);
             var success = await context.SaveChangesAsync(cancellationToken) > 0;
+
             if (!success)
-                return Result<WarehouseDetailsDto>.Failure("Failed to create warehouse", 401);
+                return Result<WarehouseDetailsDto>.Failure("Failed to create warehouse", 400);
 
             return Result<WarehouseDetailsDto>.Success(mapper.Map<WarehouseDetailsDto>(warehouse));
         }

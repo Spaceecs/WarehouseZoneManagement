@@ -40,7 +40,7 @@ public class UpdateWarehouse
             if (!success)
                 return Result<WarehouseDetailsDto>.Failure(
                     "No changes were made or failed to update",
-                    401
+                    400
                 );
 
             return Result<WarehouseDetailsDto>.Success(mapper.Map<WarehouseDetailsDto>(warehouse));

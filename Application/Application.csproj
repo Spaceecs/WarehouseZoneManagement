@@ -18,5 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Warehouses/Commands/" />
+    <Folder Include="WarehouseZones/Commands/" />
+    <Folder Include="WarehouseZones/Queries/" />
   </ItemGroup>
 </Project>
