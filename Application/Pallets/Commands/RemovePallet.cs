@@ -1,8 +1,6 @@
-using System;
 using Application.Core;
 using Application.Pallets.DTOs;
 using AutoMapper;
-using Domain;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

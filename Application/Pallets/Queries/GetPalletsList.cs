@@ -1,4 +1,3 @@
-using System;
 using Application.Core;
 using Application.Pallets.DTOs;
 using AutoMapper;
