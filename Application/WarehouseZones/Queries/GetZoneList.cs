@@ -15,6 +15,7 @@ public class GetZoneList
     {
         public Guid? WarehouseId { get; set; }
         public ZoneType? ZoneType { get; set; }
+        public bool? IsActive { get; set; }
         public string? SearchTerm { get; set; }
         public int Page { get; set; } = 1;
         public int PageSize { get; set; } = 20;
@@ -43,6 +44,11 @@ public class GetZoneList
             if (request.ZoneType.HasValue)
             {
                 query = query.Where(z => z.ZoneType == request.ZoneType.Value);
+            }
+
+            if (request.IsActive.HasValue)
+            {
+                query = query.Where(z => z.IsActive == request.IsActive.Value);
             }
 
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))

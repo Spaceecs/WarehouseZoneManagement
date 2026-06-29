@@ -51,4 +51,26 @@ public class WarehousesController : BaseApiController
             )
         );
     }
+
+    [HttpPost("{id:guid}/activate")]
+    public async Task<ActionResult<WarehouseDetailsDto>> ActivateWarehouse(
+        Guid id,
+        CancellationToken cancellationToken
+    )
+    {
+        return HandleResult(
+            await Mediator.Send(new ActivateWarehouse.Command { Id = id }, cancellationToken)
+        );
+    }
+
+    [HttpPost("{id:guid}/deactivate")]
+    public async Task<ActionResult<WarehouseDetailsDto>> DeactivateWarehouse(
+        Guid id,
+        CancellationToken cancellationToken
+    )
+    {
+        return HandleResult(
+            await Mediator.Send(new DeactivateWarehouse.Command { Id = id }, cancellationToken)
+        );
+    }
 }
