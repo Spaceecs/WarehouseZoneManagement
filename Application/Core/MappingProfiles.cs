@@ -1,4 +1,4 @@
-using System.Reflection.PortableExecutable;
+using Application.Pallets.DTOs;
 using Application.Warehouses.DTOs;
 using Application.WarehouseZones.DTOs;
 using Application.ZoneSlots.DTOs;
@@ -84,6 +84,32 @@ public class MappingProfiles : Profile
                             {
                                 Id = src.Pallet.Id,
                                 Code = src.Pallet.Code,
+                            }
+                            : null
+                    )
+            );
+
+        CreateMap<CreatePalletDto, Pallet>();
+
+        CreateMap<Pallet, PalletDto>()
+            .ForMember(
+                dest => dest.Status,
+                opt => opt.MapFrom(src => src.ZoneSlotId.HasValue ? "Placed" : "Unplaced")
+            )
+            .ForMember(
+                dest => dest.Location,
+                opt =>
+                    opt.MapFrom(src =>
+                        src.ZoneSlot != null
+                            ? new PalletLocationDto
+                            {
+                                SlotId = src.ZoneSlot.Id,
+                                SlotCode = src.ZoneSlot.Code,
+                                ZoneId = src.ZoneSlot.Zone.Id,
+                                ZoneCode = src.ZoneSlot.Zone.Code,
+                                ZoneName = src.ZoneSlot.Zone.Name,
+                                WarehouseId = src.ZoneSlot.Zone.Warehouse.Id,
+                                WarehouseName = src.ZoneSlot.Zone.Warehouse.Name,
                             }
                             : null
                     )

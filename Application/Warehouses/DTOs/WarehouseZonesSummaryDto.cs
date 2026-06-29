@@ -1,5 +1,3 @@
-using System;
-
 namespace Application.Warehouses.DTOs;
 
 public class WarehouseZonesSummaryDto

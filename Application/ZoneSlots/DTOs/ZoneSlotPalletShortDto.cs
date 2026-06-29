@@ -1,5 +1,3 @@
-using System;
-
 namespace Application.ZoneSlots.DTOs;
 
 public class ZoneSlotPalletShortDto

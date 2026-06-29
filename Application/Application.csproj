@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pallets/" />
+    <Folder Include="Pallets/Commands/" />
+    <Folder Include="Pallets/DTOs/" />
+    <Folder Include="Pallets/Queries/" />
+    <Folder Include="Pallets/Validators/" />
     <Folder Include="Warehouses/Commands/" />
     <Folder Include="WarehouseZones/Commands/" />
     <Folder Include="WarehouseZones/Queries/" />

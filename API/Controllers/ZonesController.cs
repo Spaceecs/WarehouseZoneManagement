@@ -5,8 +5,6 @@ using Application.WarehouseZones.Queries;
 using Application.ZoneSlots.Commands;
 using Application.ZoneSlots.DTOs;
 using Application.ZoneSlots.Queries;
-using Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

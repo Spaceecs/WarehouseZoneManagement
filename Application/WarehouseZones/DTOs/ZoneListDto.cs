@@ -1,5 +1,3 @@
-using Domain;
-
 namespace Application.WarehouseZones.DTOs;
 
 public class ZoneListDto : BaseZoneDto
