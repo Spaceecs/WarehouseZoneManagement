@@ -20,5 +20,6 @@
     <Folder Include="Warehouses/Commands/" />
     <Folder Include="WarehouseZones/Commands/" />
     <Folder Include="WarehouseZones/Queries/" />
+    <Folder Include="ZoneSlots/Queries/" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,9 @@ using Application.Core;
 using Application.WarehouseZones.Commands;
 using Application.WarehouseZones.DTOs;
 using Application.WarehouseZones.Queries;
+using Application.ZoneSlots.Commands;
+using Application.ZoneSlots.DTOs;
+using Application.ZoneSlots.Queries;
 using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +80,51 @@ namespace API.Controllers
         {
             return HandleResult(
                 await Mediator.Send(new DeactivateZone.Command { Id = id }, cancellationToken)
+            );
+        }
+
+        [HttpPost("{id:guid}/slots")]
+        public async Task<ActionResult<List<ZoneSlotDto>>> BulkCreateSlots(
+            Guid id,
+            BulkCreateSlotsDto dto,
+            CancellationToken cancellationToken
+        )
+        {
+            return HandleResult(
+                await Mediator.Send(
+                    new BulkCreateSlots.Command { ZoneId = id, Count = dto.Count },
+                    cancellationToken
+                )
+            );
+        }
+
+        [HttpGet("{id:guid}/slots")]
+        public async Task<ActionResult<ZoneSlotDto>> GetZoneSlots(
+            Guid id,
+            [FromQuery] bool? isOccupied,
+            CancellationToken cancellationToken
+        )
+        {
+            return HandleResult(
+                await Mediator.Send(
+                    new GetZoneSlotsList.Query { ZoneId = id, IsOccupied = isOccupied },
+                    cancellationToken
+                )
+            );
+        }
+
+        [HttpDelete("{id:guid}/slots/{slotId:guid}")]
+        public async Task<ActionResult> DeleteSlot(
+            Guid id,
+            Guid slotId,
+            CancellationToken cancellationToken
+        )
+        {
+            return HandleResult(
+                await Mediator.Send(
+                    new DeleteSlot.Command { ZoneId = id, SlotId = slotId },
+                    cancellationToken
+                )
             );
         }
     }

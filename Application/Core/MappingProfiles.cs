@@ -1,6 +1,7 @@
 using System.Reflection.PortableExecutable;
 using Application.Warehouses.DTOs;
 using Application.WarehouseZones.DTOs;
+using Application.ZoneSlots.DTOs;
 using AutoMapper;
 using Domain;
 
@@ -70,6 +71,22 @@ public class MappingProfiles : Profile
                                     / src.Slots.Count
                                     * 100,
                     })
+            );
+
+        CreateMap<ZoneSlot, ZoneSlotDto>()
+            .ForMember(dest => dest.IsOccupied, opt => opt.MapFrom(src => src.Pallet != null))
+            .ForMember(
+                dest => dest.Pallet,
+                opt =>
+                    opt.MapFrom(src =>
+                        src.Pallet != null
+                            ? new ZoneSlotPalletShortDto
+                            {
+                                Id = src.Pallet.Id,
+                                Code = src.Pallet.Code,
+                            }
+                            : null
+                    )
             );
     }
 }
