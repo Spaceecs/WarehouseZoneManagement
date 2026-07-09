@@ -22,11 +22,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\API\API.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="API/" />
     <Folder Include="TestHelpers/" />
     <Folder Include="Validators/" />
+    <Folder Include="Warehouses/" />
     <Folder Include="WarehouseZones/" />
     <Folder Include="ZoneSlots/" />
   </ItemGroup>

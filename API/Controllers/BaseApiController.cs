@@ -21,6 +21,11 @@ public class BaseApiController : ControllerBase
         if (result.IsSuccess && result.Value == null)
             return NotFound(new { error = "Resource not found" });
 
-        return BadRequest(new { error = result.Error });
+        return result.Code switch
+        {
+            404 => NotFound(new { error = result.Error }),
+            500 => StatusCode(500, new { error = result.Error }),
+            _ => BadRequest(new { error = result.Error }),
+        };
     }
 }

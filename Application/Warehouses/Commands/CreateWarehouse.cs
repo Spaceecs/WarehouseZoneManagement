@@ -29,6 +29,8 @@ public class CreateWarehouse
 
             var warehouse = mapper.Map<Warehouse>(request.Warehouse);
 
+            warehouse.IsActive = true;
+
             context.Warehouses.Add(warehouse);
             var success = await context.SaveChangesAsync(cancellationToken) > 0;
 
