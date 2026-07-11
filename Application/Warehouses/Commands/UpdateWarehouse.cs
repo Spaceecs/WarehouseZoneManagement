@@ -25,6 +25,8 @@ public class UpdateWarehouse
         {
             var warehouse = await context
                 .Warehouses.Include(x => x.Zones)
+                    .ThenInclude(z => z.Slots)
+                        .ThenInclude(s => s.Pallet)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (warehouse == null)
