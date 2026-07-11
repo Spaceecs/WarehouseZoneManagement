@@ -25,6 +25,7 @@ public class ActivateZone
             var zone = await context
                 .WarehouseZones.Include(z => z.Warehouse)
                 .Include(z => z.Slots)
+                    .ThenInclude(sl => sl.Pallet)
                 .FirstOrDefaultAsync(z => z.Id == request.Id, cancellationToken);
 
             if (zone == null)
