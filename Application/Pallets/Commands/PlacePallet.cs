@@ -31,6 +31,9 @@ public class PlacePallet
             if (pallet == null)
                 return Result<PalletDto>.Failure("Pallet not found", 404);
 
+            if (pallet.ZoneSlotId.HasValue)
+                return Result<PalletDto>.Failure("Pallet is already placed. Use Move instead", 400);
+
             var slot = await context
                 .ZoneSlots.Include(s => s.Pallet)
                 .Include(s => s.Zone)

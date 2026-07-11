@@ -156,4 +156,47 @@ public class PlacePalletHandlerTests
         Assert.False(result.IsSuccess);
         Assert.Equal("Cannot place pallet in an inactive zone", result.Error);
     }
+
+    [Fact]
+    public async Task Handle_ShouldReturnFailure_WhenPalletAlreadyPlaced()
+    {
+        var dbName = Guid.NewGuid().ToString();
+        var warehouse = new Warehouse
+        {
+            Code = "WH-050",
+            Name = "Main",
+            IsActive = true,
+        };
+        var zone = new WarehouseZone
+        {
+            WarehouseId = warehouse.Id,
+            Code = "ZONED",
+            Name = "Zone D",
+            ZoneType = ZoneType.Storage,
+            IsActive = true,
+        };
+        var occupiedSlot = new ZoneSlot { ZoneId = zone.Id, Code = "ZONED-S001" };
+        var freeSlot = new ZoneSlot { ZoneId = zone.Id, Code = "ZONED-S002" };
+        var pallet = new Pallet { Code = "PLT-050", ZoneSlotId = occupiedSlot.Id };
+
+        using (var arrange = TestDbContextFactory.Create(dbName))
+        {
+            arrange.Warehouses.Add(warehouse);
+            arrange.WarehouseZones.Add(zone);
+            arrange.ZoneSlots.AddRange(occupiedSlot, freeSlot);
+            arrange.Pallets.Add(pallet);
+            await arrange.SaveChangesAsync();
+        }
+
+        using var act = TestDbContextFactory.Create(dbName);
+        var handler = new PlacePallet.Handler(act, MapperFactory.Create());
+
+        var result = await handler.Handle(
+            new PlacePallet.Command { PalletId = pallet.Id, SlotId = freeSlot.Id },
+            CancellationToken.None
+        );
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(400, result.Code);
+    }
 }
